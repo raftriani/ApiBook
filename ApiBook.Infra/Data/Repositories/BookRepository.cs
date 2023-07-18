@@ -1,11 +1,11 @@
 ﻿using ApiBook.Domain.Entities;
 using ApiBook.Domain.Repositories;
-using ApiBook.Domain.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ApiBook.Infra.Data.Repositories
 {
+    [ExcludeFromCodeCoverage]
     public class BookRepository : IBookRepository
     {
         private readonly BookContext _context;

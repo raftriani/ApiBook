@@ -5,6 +5,8 @@ using ApiBook.Infra.Data;
 using ApiBook.Infra.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
+[assembly: System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+
 var builder = WebApplication.CreateBuilder(args);
 
 string connString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -21,12 +23,15 @@ builder.Services.AddDbContext<BookContext>(options => options.UseSqlServer(connS
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+using (var scope = app.Services.CreateScope())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    var dbContext = scope.ServiceProvider.GetRequiredService<BookContext>();
+    dbContext.Database.Migrate();
 }
+
+// Configure the HTTP request pipeline.
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 

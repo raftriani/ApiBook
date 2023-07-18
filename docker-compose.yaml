@@ -1,0 +1,29 @@
+version: "3"
+
+services: 
+
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: book-sql-server
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "MeuDB@123"
+      ACCEPT_EULA: "Y"
+
+  api-book:
+    image: "book-test:latest"
+    container_name: "book"
+    build:
+      context: ""
+      dockerfile: "./Dockerfile"
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://*:5000
+      - ConnectionStrings__DefaultConnection=Server=sql-server;Database=Book;User Id=sa;Password=MeuDB@123;encrypt=false;
+      - AWS_ACCESS_KEY_ID=AKIA3DMMERGKJUBRBTWZ
+      - AWS_SECRET_ACCESS_KEY=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
+    depends_on:
+      - sql-server

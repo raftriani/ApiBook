@@ -9,7 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiBook.Domain", "ApiBook.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiBook.Infra", "ApiBook.Infra\ApiBook.Infra.csproj", "{E1E934F6-BB75-4BEE-A4F2-0AF75EE90DE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiBook.Application", "ApiBook.Application\ApiBook.Application.csproj", "{C8642C48-E583-459F-B54B-9128F8CDB28A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiBook.Application", "ApiBook.Application\ApiBook.Application.csproj", "{C8642C48-E583-459F-B54B-9128F8CDB28A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiBook.Tests", "ApiBook.Tests\ApiBook.Tests.csproj", "{39D6202A-88EE-45CE-A241-89C954333499}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Itens", "Solution Itens", "{16D67FD6-CFA3-4BD2-A344-9EFC66B33F38}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yaml = docker-compose.yaml
+		Dockerfile = Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,6 +113,26 @@ Global
 		{C8642C48-E583-459F-B54B-9128F8CDB28A}.Release|x64.Build.0 = Release|Any CPU
 		{C8642C48-E583-459F-B54B-9128F8CDB28A}.Release|x86.ActiveCfg = Release|Any CPU
 		{C8642C48-E583-459F-B54B-9128F8CDB28A}.Release|x86.Build.0 = Release|Any CPU
+		{39D6202A-88EE-45CE-A241-89C954333499}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39D6202A-88EE-45CE-A241-89C954333499}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39D6202A-88EE-45CE-A241-89C954333499}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{39D6202A-88EE-45CE-A241-89C954333499}.Debug|ARM.Build.0 = Debug|Any CPU
+		{39D6202A-88EE-45CE-A241-89C954333499}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{39D6202A-88EE-45CE-A241-89C954333499}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{39D6202A-88EE-45CE-A241-89C954333499}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{39D6202A-88EE-45CE-A241-89C954333499}.Debug|x64.Build.0 = Debug|Any CPU
+		{39D6202A-88EE-45CE-A241-89C954333499}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{39D6202A-88EE-45CE-A241-89C954333499}.Debug|x86.Build.0 = Debug|Any CPU
+		{39D6202A-88EE-45CE-A241-89C954333499}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39D6202A-88EE-45CE-A241-89C954333499}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39D6202A-88EE-45CE-A241-89C954333499}.Release|ARM.ActiveCfg = Release|Any CPU
+		{39D6202A-88EE-45CE-A241-89C954333499}.Release|ARM.Build.0 = Release|Any CPU
+		{39D6202A-88EE-45CE-A241-89C954333499}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{39D6202A-88EE-45CE-A241-89C954333499}.Release|ARM64.Build.0 = Release|Any CPU
+		{39D6202A-88EE-45CE-A241-89C954333499}.Release|x64.ActiveCfg = Release|Any CPU
+		{39D6202A-88EE-45CE-A241-89C954333499}.Release|x64.Build.0 = Release|Any CPU
+		{39D6202A-88EE-45CE-A241-89C954333499}.Release|x86.ActiveCfg = Release|Any CPU
+		{39D6202A-88EE-45CE-A241-89C954333499}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
