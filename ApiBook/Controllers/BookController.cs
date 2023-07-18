@@ -1,5 +1,6 @@
-﻿using ApiBook.Domain.Entities;
-using ApiBook.Services;
+﻿using ApiBook.Application.Interfaces;
+using ApiBook.Domain.Entities;
+using ApiBook.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiLivros.Controllers
@@ -8,9 +9,9 @@ namespace ApiLivros.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        private readonly BookService _bookService;
+        private readonly IBookService _bookService;
 
-        public BookController(BookService bookService)
+        public BookController(IBookService bookService)
         {
             _bookService = bookService;
         }
@@ -50,9 +51,16 @@ namespace ApiLivros.Controllers
         {
             try
             {
-                await _bookService.Add(book);
+                string message = await _bookService.Add(book);
 
-                return Ok("Livro inserido com sucesso!");
+                if(string.IsNullOrEmpty(message))
+                {
+                    return Ok("Livro inserido com sucesso!");
+                }
+                else
+                {
+                    return Problem(message);
+                }
             }
             catch (Exception ex)
             {
@@ -61,13 +69,22 @@ namespace ApiLivros.Controllers
         }
 
         [HttpPatch]
-        public async Task<ObjectResult> Update(Book book)
+        public async Task<ObjectResult> Update(BookViewModel book)
         {
             try
             {
-                await _bookService.Update(book);
+                Book bookModel = BookViewModel.Factory(book);
 
-                return Ok("Livro atualizado com sucesso!");
+                string message = await _bookService.Update(bookModel);
+
+                if (string.IsNullOrEmpty(message))
+                {
+                    return Ok("Livro atualizado com sucesso!");
+                }
+                else
+                {
+                    return Problem(message);
+                }
             }
             catch (Exception ex)
             {

@@ -22,7 +22,7 @@ namespace ApiBook.Infra.Data.Mappings
                 .IsRequired()
                 .HasField("int(4)");
 
-            builder.Property(u => u.BookCover)
+            builder.Property(u => u.Cover)
                 .IsRequired()
                 .HasField("varchar(max)");
         }

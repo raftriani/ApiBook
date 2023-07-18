@@ -1,18 +1,19 @@
+using ApiBook.Application.Interfaces;
+using ApiBook.Application.Services;
 using ApiBook.Domain.Repositories;
 using ApiBook.Infra.Data;
 using ApiBook.Infra.Data.Repositories;
-using ApiBook.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 string connString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddScoped<BookService>();
+builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

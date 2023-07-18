@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiBook.Domain", "ApiBook.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiBook.Infra", "ApiBook.Infra\ApiBook.Infra.csproj", "{E1E934F6-BB75-4BEE-A4F2-0AF75EE90DE4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiBook.Application", "ApiBook.Application\ApiBook.Application.csproj", "{C8642C48-E583-459F-B54B-9128F8CDB28A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,26 @@ Global
 		{E1E934F6-BB75-4BEE-A4F2-0AF75EE90DE4}.Release|x64.Build.0 = Release|Any CPU
 		{E1E934F6-BB75-4BEE-A4F2-0AF75EE90DE4}.Release|x86.ActiveCfg = Release|Any CPU
 		{E1E934F6-BB75-4BEE-A4F2-0AF75EE90DE4}.Release|x86.Build.0 = Release|Any CPU
+		{C8642C48-E583-459F-B54B-9128F8CDB28A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8642C48-E583-459F-B54B-9128F8CDB28A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8642C48-E583-459F-B54B-9128F8CDB28A}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{C8642C48-E583-459F-B54B-9128F8CDB28A}.Debug|ARM.Build.0 = Debug|Any CPU
+		{C8642C48-E583-459F-B54B-9128F8CDB28A}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{C8642C48-E583-459F-B54B-9128F8CDB28A}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{C8642C48-E583-459F-B54B-9128F8CDB28A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C8642C48-E583-459F-B54B-9128F8CDB28A}.Debug|x64.Build.0 = Debug|Any CPU
+		{C8642C48-E583-459F-B54B-9128F8CDB28A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C8642C48-E583-459F-B54B-9128F8CDB28A}.Debug|x86.Build.0 = Debug|Any CPU
+		{C8642C48-E583-459F-B54B-9128F8CDB28A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8642C48-E583-459F-B54B-9128F8CDB28A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8642C48-E583-459F-B54B-9128F8CDB28A}.Release|ARM.ActiveCfg = Release|Any CPU
+		{C8642C48-E583-459F-B54B-9128F8CDB28A}.Release|ARM.Build.0 = Release|Any CPU
+		{C8642C48-E583-459F-B54B-9128F8CDB28A}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{C8642C48-E583-459F-B54B-9128F8CDB28A}.Release|ARM64.Build.0 = Release|Any CPU
+		{C8642C48-E583-459F-B54B-9128F8CDB28A}.Release|x64.ActiveCfg = Release|Any CPU
+		{C8642C48-E583-459F-B54B-9128F8CDB28A}.Release|x64.Build.0 = Release|Any CPU
+		{C8642C48-E583-459F-B54B-9128F8CDB28A}.Release|x86.ActiveCfg = Release|Any CPU
+		{C8642C48-E583-459F-B54B-9128F8CDB28A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
