@@ -23,6 +23,17 @@ builder.Services.AddDbContext<BookContext>(options => options.UseSqlServer(connS
 
 var app = builder.Build();
 
+// Obtém o valor da variável de ambiente X
+string awsKeyEncode = Environment.GetEnvironmentVariable("AWS_S3_KEY");
+
+byte[] bytes = Convert.FromBase64String(awsKeyEncode);
+string awsKey = System.Text.Encoding.UTF8.GetString(bytes);
+
+var result = awsKey.Split(":");
+
+Environment.SetEnvironmentVariable("AWS_ACCESS_KEY_ID", result[0]);
+Environment.SetEnvironmentVariable("AWS_SECRET_ACCESS_KEY", result[1]);
+
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<BookContext>();

@@ -23,7 +23,6 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://*:5000
       - ConnectionStrings__DefaultConnection=Server=sql-server;Database=Book;User Id=sa;Password=MeuDB@123;encrypt=false;
-      - AWS_ACCESS_KEY_ID=AKIA3DMMERGKJUBRBTWZ
-      - AWS_SECRET_ACCESS_KEY=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
+      - AWS_S3_KEY=QUtJQTNETU1FUkdLSlVCUkJUV1o6M3ZKbDFkSkhqUzNaZTNTKzRuRmpCeGZyMW10SEVkZCtPdE93WmUwdg==
     depends_on:
       - sql-server
