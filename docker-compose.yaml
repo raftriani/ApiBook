@@ -23,6 +23,6 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://*:5000
       - ConnectionStrings__DefaultConnection=Server=sql-server;Database=Book;User Id=sa;Password=MeuDB@123;encrypt=false;
-      - AWS_S3_KEY=QUtJQTNETU1FUkdLSlVCUkJUV1o6M3ZKbDFkSkhqUzNaZTNTKzRuRmpCeGZyMW10SEVkZCtPdE93WmUwdg==
+      - AWS_S3_KEY=QUtJQTNETU1FUkdLSlVCUkJUV1o6M3ZKbDFkSkhqUzNaZTNTKzRuRmpCeGZyMW10SEVkZCtPdE93WmUwdg== #Alterar essa chave para uma chave valida do S3 em formato base 64
     depends_on:
       - sql-server
