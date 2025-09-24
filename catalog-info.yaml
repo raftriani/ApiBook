@@ -1,0 +1,85 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: apibook
+  title: API Book
+  description: API simples para gerenciamento de livros com upload de capas para S3
+  tags:
+    - csharp
+    - dotnet
+    - api
+    - books
+    - s3
+    - sql-server
+  annotations:
+    # URL do Swagger quando a API estiver rodando
+    swagger.io/docs-url: http://localhost:5000/swagger
+    
+    # Repositório GitHub
+    github.com/project-slug: raftriani/ApiBook
+    
+    # Documentação técnica (se houver)
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: user:rafael.triani
+  system: book-management
+  definition:
+    # Você pode referenciar o swagger.json gerado pela aplicação
+    $text: http://localhost:5000/swagger/v1/swagger.json
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: apibook-service
+  title: ApiBook Service
+  description: Serviço backend da API de livros com integração AWS S3
+  tags:
+    - dotnet-core
+    - web-api
+    - entity-framework
+    - aws-s3
+  annotations:
+    github.com/project-slug: raftriani/ApiBook
+spec:
+  type: service
+  lifecycle: experimental
+  owner: user:rafael.triani
+  system: book-management
+  providesApis:
+    - apibook
+  dependsOn:
+    - resource:sql-server-database
+    - resource:aws-s3-bucket
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: book-management
+  title: Book Management System
+  description: Sistema completo para gerenciamento de livros
+spec:
+  owner: user:rafael.triani
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: sql-server-database
+  title: SQL Server Database
+  description: Base de dados para armazenar informações dos livros
+spec:
+  type: database
+  owner: user:rafael.triani
+  system: book-management
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: aws-s3-bucket
+  title: AWS S3 Bucket
+  description: Bucket S3 para armazenar capas dos livros
+spec:
+  type: storage
+  owner: user:rafael.triani
+  system: book-management
