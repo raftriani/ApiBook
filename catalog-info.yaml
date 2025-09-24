@@ -17,17 +17,14 @@ metadata:
     
     # Repositório GitHub
     github.com/project-slug: raftriani/ApiBook
-    
-    # Documentação técnica (se houver)
-    backstage.io/techdocs-ref: dir:.
 spec:
   type: openapi
   lifecycle: experimental
   owner: user:rafael.triani
   system: book-management
-  definition:
-    # Você pode referenciar o swagger.json gerado pela aplicação
-    $text: http://localhost:5000/swagger/v1/swagger.json
+  # Removido o $text para evitar erro de leitura de localhost
+  # definition:
+  #   $text: http://localhost:5000/swagger/v1/swagger.json
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
