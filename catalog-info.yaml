@@ -1,9 +1,9 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: apibook
-  title: API Book
-  description: API para gerenciamento de livros
+  name: apibook-complete
+  title: API Book - Complete
+  description: API completa para gerenciamento de livros com upload de capas para S3
   annotations:
     swagger.io/docs-url: http://localhost:5000/swagger
     github.com/project-slug: raftriani/ApiBook
@@ -14,28 +14,269 @@ spec:
   definition: |
     openapi: 3.0.1
     info:
-      title: ApiBook
+      title: ApiBook - Complete API
       version: 1.0.0
-      description: API para gerenciamento de livros
+      description: API completa para gerenciamento de livros com integração AWS S3
+      contact:
+        name: Rafael Triani
+        email: rafael.triani@example.com
+    servers:
+      - url: http://localhost:5000
+        description: Servidor local de desenvolvimento
     paths:
       /api/Book:
         get:
-          summary: Lista livros
+          summary: Lista todos os livros disponíveis
+          description: Retorna uma lista com todos os livros cadastrados no sistema
+          operationId: FindAll
           responses:
             '200':
-              description: OK
+              description: Lista de livros retornada com sucesso
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Book'
+            '400':
+              description: Erro na requisição
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/ErrorResponse'
         post:
-          summary: Cria livro
+          summary: Adiciona um novo livro
+          description: Cria um novo livro no sistema com os dados fornecidos
+          operationId: Add
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/BookCreate'
           responses:
             '200':
-              description: OK
+              description: Livro inserido com sucesso
+              content:
+                application/json:
+                  schema:
+                    type: string
+                    example: "Livro inserido com sucesso!"
+            '400':
+              description: Dados inválidos ou erro na requisição
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/ErrorResponse'
+        patch:
+          summary: Atualiza um livro existente
+          description: Atualiza os dados de um livro existente no sistema
+          operationId: Update
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/BookViewModel'
+          responses:
+            '200':
+              description: Livro atualizado com sucesso
+              content:
+                application/json:
+                  schema:
+                    type: string
+                    example: "Livro atualizado com sucesso!"
+            '400':
+              description: Dados inválidos ou erro na requisição
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/ErrorResponse'
+      /api/Book/{id}:
+        get:
+          summary: Busca um livro específico por ID
+          description: Retorna os detalhes de um livro baseado no ID fornecido
+          operationId: Find
+          parameters:
+            - name: id
+              in: path
+              required: true
+              description: ID único do livro (GUID)
+              schema:
+                type: string
+                format: uuid
+                example: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+          responses:
+            '200':
+              description: Livro encontrado com sucesso
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Book'
+            '400':
+              description: ID inválido ou erro na requisição
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/ErrorResponse'
+            '404':
+              description: Livro não encontrado
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/ErrorResponse'
+        delete:
+          summary: Remove um livro do sistema
+          description: Exclui permanentemente um livro baseado no ID fornecido
+          operationId: Remove
+          parameters:
+            - name: id
+              in: path
+              required: true
+              description: ID único do livro a ser removido (GUID)
+              schema:
+                type: string
+                format: uuid
+                example: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+          responses:
+            '200':
+              description: Livro removido com sucesso
+              content:
+                application/json:
+                  schema:
+                    type: string
+                    example: "Livro removido com sucesso!"
+            '400':
+              description: ID inválido ou erro na operação
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/ErrorResponse'
+            '404':
+              description: Livro não encontrado
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/ErrorResponse'
+    components:
+      schemas:
+        Book:
+          type: object
+          description: Entidade completa do livro
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: Identificador único do livro
+              example: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+            title:
+              type: string
+              description: Título do livro
+              minLength: 10
+              maxLength: 100
+              example: "Clean Code: A Handbook of Agile Software Craftsmanship"
+            author:
+              type: string
+              description: Autor do livro
+              minLength: 10
+              maxLength: 100
+              example: "Robert C. Martin"
+            launchYear:
+              type: integer
+              description: Ano de lançamento do livro
+              minimum: 1000
+              maximum: 9999
+              example: 2008
+            cover:
+              type: string
+              description: URL da capa do livro (armazenada no S3)
+              example: "https://s3.amazonaws.com/bucket/covers/clean-code.jpg"
+          required:
+            - title
+            - author
+            - launchYear
+            - cover
+        BookCreate:
+          type: object
+          description: Dados necessários para criar um novo livro
+          properties:
+            title:
+              type: string
+              description: Título do livro
+              minLength: 10
+              maxLength: 100
+              example: "Clean Code: A Handbook of Agile Software Craftsmanship"
+            author:
+              type: string
+              description: Autor do livro
+              minLength: 10
+              maxLength: 100
+              example: "Robert C. Martin"
+            launchYear:
+              type: integer
+              description: Ano de lançamento do livro
+              minimum: 1000
+              maximum: 9999
+              example: 2008
+            cover:
+              type: string
+              description: URL ou nome do arquivo da capa
+              example: "clean-code.jpg"
+          required:
+            - title
+            - author
+            - launchYear
+            - cover
+        BookViewModel:
+          type: object
+          description: Modelo para atualização de livros
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: ID do livro a ser atualizado
+              example: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+            title:
+              type: string
+              description: Título do livro
+              minLength: 10
+              maxLength: 100
+              example: "Clean Code: A Handbook of Agile Software Craftsmanship"
+            author:
+              type: string
+              description: Autor do livro
+              minLength: 10
+              maxLength: 100
+              example: "Robert C. Martin"
+            launchYear:
+              type: integer
+              description: Ano de lançamento do livro
+              minimum: 1000
+              maximum: 9999
+              example: 2008
+            cover:
+              type: string
+              description: URL da capa do livro
+              example: "https://s3.amazonaws.com/bucket/covers/clean-code.jpg"
+          required:
+            - id
+        ErrorResponse:
+          type: object
+          description: Resposta de erro padrão da API
+          properties:
+            message:
+              type: string
+              description: Mensagem de erro
+              example: "Erro ao processar a requisição"
+          required:
+            - message
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: apibook-service
-  title: ApiBook Service
-  description: Serviço da API de livros
+  name: apibook-service-complete
+  title: ApiBook Service - Complete
+  description: Serviço completo da API de livros com todas as funcionalidades
   annotations:
     github.com/project-slug: raftriani/ApiBook
 spec:
@@ -43,4 +284,4 @@ spec:
   lifecycle: experimental
   owner: user:rafael.triani
   providesApis:
-    - apibook
+    - apibook-complete
