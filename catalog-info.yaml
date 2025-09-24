@@ -3,80 +3,44 @@ kind: API
 metadata:
   name: apibook
   title: API Book
-  description: API simples para gerenciamento de livros com upload de capas para S3
-  tags:
-    - csharp
-    - dotnet
-    - api
-    - books
-    - s3
-    - sql-server
+  description: API para gerenciamento de livros
   annotations:
-    # URL do Swagger quando a API estiver rodando
     swagger.io/docs-url: http://localhost:5000/swagger
-    
-    # Repositório GitHub
     github.com/project-slug: raftriani/ApiBook
 spec:
   type: openapi
-  lifecycle: experimental
+  lifecycle: experimental  
   owner: user:rafael.triani
-  system: book-management
-  # Removido o $text para evitar erro de leitura de localhost
-  # definition:
-  #   $text: http://localhost:5000/swagger/v1/swagger.json
+  definition: |
+    openapi: 3.0.1
+    info:
+      title: ApiBook
+      version: 1.0.0
+      description: API para gerenciamento de livros
+    paths:
+      /api/Book:
+        get:
+          summary: Lista livros
+          responses:
+            '200':
+              description: OK
+        post:
+          summary: Cria livro
+          responses:
+            '200':
+              description: OK
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: apibook-service
   title: ApiBook Service
-  description: Serviço backend da API de livros com integração AWS S3
-  tags:
-    - dotnet-core
-    - web-api
-    - entity-framework
-    - aws-s3
+  description: Serviço da API de livros
   annotations:
     github.com/project-slug: raftriani/ApiBook
 spec:
   type: service
   lifecycle: experimental
   owner: user:rafael.triani
-  system: book-management
   providesApis:
     - apibook
-  dependsOn:
-    - resource:sql-server-database
-    - resource:aws-s3-bucket
----
-apiVersion: backstage.io/v1alpha1
-kind: System
-metadata:
-  name: book-management
-  title: Book Management System
-  description: Sistema completo para gerenciamento de livros
-spec:
-  owner: user:rafael.triani
----
-apiVersion: backstage.io/v1alpha1
-kind: Resource
-metadata:
-  name: sql-server-database
-  title: SQL Server Database
-  description: Base de dados para armazenar informações dos livros
-spec:
-  type: database
-  owner: user:rafael.triani
-  system: book-management
----
-apiVersion: backstage.io/v1alpha1
-kind: Resource
-metadata:
-  name: aws-s3-bucket
-  title: AWS S3 Bucket
-  description: Bucket S3 para armazenar capas dos livros
-spec:
-  type: storage
-  owner: user:rafael.triani
-  system: book-management
